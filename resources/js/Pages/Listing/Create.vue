@@ -57,6 +57,7 @@
         area: 0,
         city: null,
         code: null,
+        street: null,
         street_nr: null,
         price: 0
 
