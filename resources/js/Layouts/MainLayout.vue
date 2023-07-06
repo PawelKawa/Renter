@@ -1,10 +1,10 @@
 
 <template>
   <Link class="text-red-500" href="/">
-    Go to Main page
+     Main page
   </Link>&nbsp;
-  <Link class="text-red-500" href="/second">
-    Go to second page
+  <Link class="text-red-500" href="/listing">
+    Go to Listings page
   </Link>&nbsp;
   <p>{{ timer }}</p>
     
