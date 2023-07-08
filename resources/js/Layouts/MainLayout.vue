@@ -17,26 +17,22 @@
             </nav>
         </div>
     </header>
-    <main class="container mx-auto p-4">
+    <main class="container mx-auto p-4 min-h-screen">
         <div v-if="flashSuccess"
             class="mb-4 border rounded-md shadow-sm border-green-300 bg-green-200 p-2">
             {{ flashSuccess }}
         </div>
         <slot>Default</slot>
     </main>
-    <!-- <p>{{ timer }}</p> -->
 </div>
-    <slot />
 </template>
 
 <script setup>
     import { ref } from 'vue'
     import { computed } from 'vue'
     import { usePage } from '@inertiajs/vue3'
-    const page = usePage()
-    const timer = ref(0)
-    const flashSuccess = computed(() => page.props.flash.success)
 
-    setInterval(() => timer.value++, 1000)
-    defineExpose({ timer })
+    const page = usePage()
+    const flashSuccess = computed(() => page.props.flash.success)
+    
 </script>
