@@ -2,13 +2,13 @@
   <div v-if="flashSuccess" class="flash">
     {{flashSuccess}}
   </div>
-  <Link class="text-red-500" href="/">
-     Main page
-  </Link>&nbsp;
   <Link class="text-red-500" href="/listing">
-    Go to Listings page
+    Listing
   </Link>&nbsp;
-  <p>{{ timer }}</p>
+  <Link class="text-red-500" href="/listing/create">
+     New listing
+  </Link>&nbsp;
+  <!-- <p>{{ timer }}</p> -->
 
   <slot />
 </template>
