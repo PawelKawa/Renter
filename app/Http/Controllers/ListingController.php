@@ -45,7 +45,18 @@ class ListingController extends Controller
         // $listing = new Listing ();
         // $listing->beds = $request->beds;
         // $listing->save();
-        Listing::create($request->all());
+        Listing::create(
+            $request->validate([
+                'beds' => 'required|integer|min:0|max:6',
+                'baths' => 'required|integer|min:0|max:6',
+                'area' => 'required|integer|min:15|max:400',
+                'city' => 'required',
+                'code' => 'required',
+                'street' => 'required',
+                'street_nr' => 'required|min:1',
+                'price' => 'required|min:1'
+            ])
+        );
         
         return redirect()->route('listing.index')->with('success', 'Listing was created!');
 
