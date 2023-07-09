@@ -8,7 +8,7 @@ import {ZiggyVue} from 'ziggy'
 import { InertiaProgress } from '@inertiajs/progress'
 InertiaProgress.init({
     delay:0,
-    color: '#29d',
+    // color: '#29d',
     includeCSS: true,
     showSpinner: true
 })
