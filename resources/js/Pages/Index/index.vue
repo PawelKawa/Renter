@@ -1,7 +1,7 @@
 <template>
   <p class="text-3xl font-bold underline">Main page</p>
   <p>The message is: {{ message }}</p>
-  <p>{{y}}</p>
+  <p>{{ y }}</p>
   <button class="mr-2 border" @click="plus">add</button>
   <button class="border" @click="x--">subtract</button>
 </template>
@@ -10,7 +10,7 @@
 // import MainLayout from '../../Layouts/MainLayout.vue'
 // import MainLayout from '@/Layouts/MainLayout.vue'
 import {ref, computed} from 'vue'
-const x = ref(0);
+const x = ref(0)
 const y = computed( () => x.value * 2 )
 const plus = () => x.value++
 // defineProps(['message'])

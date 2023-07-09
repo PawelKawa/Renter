@@ -1,15 +1,14 @@
 <template>
-    <div>
-      {{ listing.street }}
-      {{ listing.street_nr }}
-      {{ listing.city }}
-      {{ listing.price }}
-    </div>
-  </template>
+  <div>
+    {{ listing.street_nr }}
+    {{ listing.street }}
+    {{ listing.city }}
+  </div>
+</template>
   
-  <script setup>
-      defineProps({
-          listing: Object
-      })
-  </script>
+<script setup>
+defineProps({
+    listing: Object,
+})
+</script>
   
