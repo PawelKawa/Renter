@@ -10,10 +10,7 @@
             <Link :href="route('listing.index')"> Renter </Link>
           </div>
           <div>
-            <Link
-              :href="route('listing.create')"
-              class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium p-2 rounded-md"
-            >
+            <Link :href="route('listing.create')" class="primary-btn">
               + New Listing
             </Link>
           </div>
@@ -21,10 +18,7 @@
       </div>
     </header>
     <main class="container mx-auto p-4 min-h-screen">
-      <div
-        v-if="flashSuccess"
-        class="mb-4 border rounded-md shadow-sm border-green-300 bg-green-200 p-2"
-      >
+      <div v-if="flashSuccess" class="mb-4 border rounded-md shadow-sm border-green-300 bg-green-200 p-2">
         {{ flashSuccess }}
       </div>
       <slot>Default</slot>
@@ -39,5 +33,5 @@ import { usePage } from '@inertiajs/vue3'
 
 const page = usePage()
 const flashSuccess = computed(() => page.props.flash.success)
-    
+
 </script>
