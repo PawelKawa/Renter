@@ -10,7 +10,7 @@
         </template>
         <Price :price="listing.price" class="text-2xl" />
         <ListingSpace :listing="listing" class="text-xl" />
-        <ListingAddress :listing="listing" class="text-red-200" />
+        <ListingAddress :listing="listing" class="dark:text-red-200" />
       </Box>
       <Box>
         <template #header>

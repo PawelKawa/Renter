@@ -10,7 +10,7 @@ module.exports = {
       es6: true,
     },
     rules: {
-      indent: ['error', 4],
+      indent: ['error', 4, { SwitchCase: 1 }],
       quotes: ['warn', 'single'],
       semi: ['warn', 'never'],
       'no-unused-vars': ['error', { vars: 'all', args: 'after-used', ignoreRestSiblings: true }],
