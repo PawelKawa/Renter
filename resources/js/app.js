@@ -5,7 +5,13 @@ import { createInertiaApp } from '@inertiajs/vue3'
 import '../css/app.css'
 import { Link } from '@inertiajs/vue3'
 import {ZiggyVue} from 'ziggy'
-
+import { InertiaProgress } from '@inertiajs/progress'
+InertiaProgress.init({
+    delay:0,
+    color: '#29d',
+    includeCSS: true,
+    showSpinner: true
+})
 createInertiaApp({
     resolve: (name) => {
         const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
