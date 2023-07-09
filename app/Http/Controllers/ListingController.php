@@ -47,14 +47,14 @@ class ListingController extends Controller
         // $listing->save();
         Listing::create(
             $request->validate([
-                'beds' => 'required|integer|min:0|max:6',
-                'baths' => 'required|integer|min:0|max:6',
+                'beds' => 'required|integer|min:1|max:6',
+                'baths' => 'required|integer|min:1|max:6',
                 'area' => 'required|integer|min:15|max:400',
                 'city' => 'required',
                 'code' => 'required',
                 'street' => 'required',
                 'street_nr' => 'required|min:1',
-                'price' => 'required|min:1'
+                'price' => 'required|integer|min:1|max:20000000'
             ])
         );
         
@@ -105,14 +105,14 @@ class ListingController extends Controller
     {
         $listing->update(
             $request->validate([
-                'beds' => 'required|integer|min:0|max:6',
-                'baths' => 'required|integer|min:0|max:6',
+                'beds' => 'required|integer|min:1|max:6',
+                'baths' => 'required|integer|min:1|max:6',
                 'area' => 'required|integer|min:15|max:400',
                 'city' => 'required',
                 'code' => 'required',
                 'street' => 'required',
                 'street_nr' => 'required|min:1',
-                'price' => 'required|min:1'
+                'price' => 'required|integer|min:1|max:20000000'
             ])
         );
     

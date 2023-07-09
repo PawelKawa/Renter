@@ -12,4 +12,7 @@
     .primary-btn {
         @apply col-span-6 bg-indigo-600 hover:bg-indigo-500 text-white font-medium p-2 rounded-md
     }
+    .input-error {
+        @apply text-sm text-red-500
+    }
 }
