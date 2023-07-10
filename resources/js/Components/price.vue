@@ -13,7 +13,7 @@ const formatedPrice = computed(
     () => Number(props.price).toLocaleString('en-GB', {
         style: 'currency',
         currency: 'GBP',
-        maximumFractionDigits: 2,
+        maximumFractionDigits: 0,
     }),
 )
 </script>

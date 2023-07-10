@@ -17,19 +17,26 @@
                     Monthly Payment
                 </template>
                 <div>
-                    <label class="label">Deposit</label>
-                    <input type="number" class="text-black">
-                    <label class="label">Interest rate (2.5%)</label>
-                    <input type="range" min="0.1" max="30" step="0.1"
-                        class="w-full h-4 bg-gray-700 rounded-lg appearance-none cursor-pointer dark:bg-gray-100" />
-
-                    <label class="label">Duration (25 years)</label>
-                    <input type="range" min="1" max="35" step="1"
-                        class="w-full h-4 bg-gray-700 rounded-lg appearance-none cursor-pointer dark:bg-gray-100" />
+                    <div class="flex items-center mt-2">
+                        <label class="label">Deposit</label>
+                        <p class="relative left-8 text-black">£</p>
+                        <input v-model.number="deposit" type="number" min="1" :max="listing.price-10000"
+                            class="text-black ml-4 pl-6 w-full input">
+                        </div>
+                    <div class="mt-2">
+                        <label class="label">Interest rate ({{intrestRate}}%)</label>
+                        <input v-model.number="intrestRate" type="range" min="0.1" max="30" step="0.1"
+                            class="w-full h-4 bg-gray-700 rounded-lg appearance-none cursor-pointer dark:bg-gray-100" />
+                    </div>
+                    <div class="mt-2">
+                        <label class="label">Duration ({{duration}}years)</label>
+                        <input v-model.number="duration" type="range" min="1" max="35" step="1"
+                            class="w-full h-4 bg-gray-700 rounded-lg appearance-none cursor-pointer dark:bg-gray-100" />
+                    </div>
 
                     <div class="text-gray-600 dark:text-gray-300 mt-2">
                         <div class="text-gray-400">Your monthly payment</div>
-                        <Price :price="500" class="text-3xl" />
+                        <Price :price="monthlyPayment" class="text-3xl" />
                     </div>
                 </div>
             </Box>
@@ -42,9 +49,21 @@
     import ListingSpace from '@/Components/ListingSpace.vue'
     import ListingAddress from '@/Components/ListingAddress.vue'
     import Box from '@/Components/UI/Box.vue'
-    defineProps({
+    import { ref, computed } from 'vue'
+
+    const props = defineProps({
         listing: Object,
     })
+    const deposit = ref(10000)
+    const intrestRate = ref(2.5)
+    const duration = ref(25)
+    const monthlyPayment = computed(() => {
+        const principle = props.listing.price - deposit.value
+        const monthlyInterest = intrestRate.value / 100 / 12
+        const numberOfPaymentMonths = duration.value * 12
+        return principle * monthlyInterest * (Math.pow(1 + monthlyInterest, numberOfPaymentMonths)) / (Math.pow(1 + monthlyInterest, numberOfPaymentMonths) - 1)
+    })
+
 </script>
 
 <script>
