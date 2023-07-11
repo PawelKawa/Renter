@@ -38,6 +38,14 @@
                         <div class="text-gray-400">Your monthly payment</div>
                         <Price :price="monthlyPayment" class="text-3xl" />
                     </div>
+                    <div class="text-gray-600 dark:text-gray-300 mt-2">
+                        <div class="text-gray-400">Total paid for property</div>
+                        <Price :price="totalPaid" class="text-3xl" />
+                    </div>
+                    <div class="text-gray-600 dark:text-gray-300 mt-2">
+                        <div class="text-gray-400">Total intrest paid on the mortgage</div>
+                        <Price :price="totalIntrest" class="text-3xl" />
+                    </div>
                 </div>
             </Box>
         </div>
@@ -62,6 +70,12 @@
         const monthlyInterest = intrestRate.value / 100 / 12
         const numberOfPaymentMonths = duration.value * 12
         return principle * monthlyInterest * (Math.pow(1 + monthlyInterest, numberOfPaymentMonths)) / (Math.pow(1 + monthlyInterest, numberOfPaymentMonths) - 1)
+    })
+    const totalPaid = computed(()=>{
+        return duration.value * 12 * monthlyPayment.value
+    })
+    const totalIntrest = computed(()=>{
+        return totalPaid.value - props.listing.price - deposit.value
     })
 
 </script>
