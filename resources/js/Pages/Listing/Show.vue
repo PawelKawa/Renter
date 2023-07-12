@@ -22,10 +22,10 @@
                         <p class="relative left-8 text-black">£</p>
                         <input v-model.number="deposit" type="number" min="1" :max="listing.price-10000"
                             class="text-black ml-4 pl-6 w-full input">
-                        </div>
+                    </div>
                     <div class="mt-2">
-                        <label class="label">Interest rate ({{intrestRate}}%)</label>
-                        <input v-model.number="intrestRate" type="range" min="0.1" max="30" step="0.1"
+                        <label class="label">Interest rate ({{interestRate}}%)</label>
+                        <input v-model.number="interestRate" type="range" min="0.1" max="30" step="0.1"
                             class="w-full h-4 bg-gray-700 rounded-lg appearance-none cursor-pointer dark:bg-gray-100" />
                     </div>
                     <div class="mt-2">
@@ -33,19 +33,46 @@
                         <input v-model.number="duration" type="range" min="1" max="35" step="1"
                             class="w-full h-4 bg-gray-700 rounded-lg appearance-none cursor-pointer dark:bg-gray-100" />
                     </div>
-
+                    <div class="text-gray-600 dark:text-gray-300 mt-2">
+                        <div class="text-gray-400">Total loan amount</div>
+                        <Price :price="loanAmount" class="text-3xl" />
+                    </div>
                     <div class="text-gray-600 dark:text-gray-300 mt-2">
                         <div class="text-gray-400">Your monthly payment</div>
                         <Price :price="monthlyPayment" class="text-3xl" />
                     </div>
                     <div class="text-gray-600 dark:text-gray-300 mt-2">
-                        <div class="text-gray-400">Total paid for property</div>
+                        <div class="text-gray-400">Which monthly loan paying back:</div>
+                        <Price :price="monthlyLoanPayingBack" class="text-3xl" />
+                    </div>
+                    <div class="text-gray-600 dark:text-gray-300 mt-2">
+                        <div class="text-gray-400">Monthly interest will be:</div>
+                        <Price :price="monthlyInterest" class="text-3xl" />
+                    </div>
+                    <div class="text-gray-600 dark:text-gray-300 mt-2">
+                        <div class="text-gray-400">You will be paying for that many months:</div>
+                        <div class="text-3xl">{{durationMonths}}</div>
+                    </div>
+                    <div class="text-gray-600 dark:text-gray-300 mt-2">
+                        <div class="text-gray-400">Until you paid total amount for property:</div>
                         <Price :price="totalPaid" class="text-3xl" />
                     </div>
                     <div class="text-gray-600 dark:text-gray-300 mt-2">
-                        <div class="text-gray-400">Total intrest paid on the mortgage</div>
-                        <Price :price="totalIntrest" class="text-3xl" />
+                        <div class="text-gray-400">Which just interest will be:</div>
+                        <Price :price="interestPaid" class="text-3xl" />
                     </div>
+                    <div class="text-gray-600 dark:text-gray-300 mt-2">
+                        <div class="text-gray-400">
+                            Property cost of: £ {{props.listing.price.toLocaleString()}} 
+                            with £ {{deposit.toLocaleString()}} of deposit <br>
+                            will cost you £ {{ Math.floor(monthlyPayment).toLocaleString() }} monthly
+                            (£ {{Math.floor(monthlyInterest).toLocaleString() }} intrest + £ {{Math.floor(monthlyLoanPayingBack).toLocaleString() }} paying back of the loan)
+                           <br> for {{durationMonths}} months until you pay <br> total of £ {{Math.floor(totalPaid).toLocaleString()}}
+                            with total £ {{Math.floor(interestPaid).toLocaleString()}} of intrest.
+                        </div>
+                    </div>
+
+
                 </div>
             </Box>
         </div>
@@ -62,21 +89,35 @@
     const props = defineProps({
         listing: Object,
     })
-    const deposit = ref(10000)
-    const intrestRate = ref(2.5)
-    const duration = ref(25)
-    const monthlyPayment = computed(() => {
-        const principle = props.listing.price - deposit.value
-        const monthlyInterest = intrestRate.value / 100 / 12
-        const numberOfPaymentMonths = duration.value * 12
-        return principle * monthlyInterest * (Math.pow(1 + monthlyInterest, numberOfPaymentMonths)) / (Math.pow(1 + monthlyInterest, numberOfPaymentMonths) - 1)
-    })
-    const totalPaid = computed(()=>{
-        return duration.value * 12 * monthlyPayment.value
-    })
-    const totalIntrest = computed(()=>{
-        return totalPaid.value - props.listing.price - deposit.value
-    })
+    const deposit = ref(10000);
+const interestRate = ref(2.5);
+const duration = ref(25);
+const loanAmount = computed(() => {
+  return props.listing.price - deposit.value;
+});
+const durationMonths = computed(() => {
+  return duration.value * 12;
+});
+const monthlyInterestRate = computed(() => {
+  return interestRate.value / 100 / 12;
+});
+const monthlyPayment = computed(() => {
+  const numerator = monthlyInterestRate.value * Math.pow(1 + monthlyInterestRate.value, durationMonths.value);
+  const denominator = Math.pow(1 + monthlyInterestRate.value, durationMonths.value) - 1;
+  return loanAmount.value * (numerator / denominator);
+});
+const totalPaid = computed(() => {
+  return monthlyPayment.value * durationMonths.value;
+});
+const interestPaid = computed(() => {
+  return totalPaid.value - loanAmount.value;
+});
+const monthlyInterest = computed(() => {
+  return interestPaid.value / durationMonths.value;
+});
+const monthlyLoanPayingBack = computed(() => {
+  return monthlyPayment.value - monthlyInterest.value;
+});
 
 </script>
 
