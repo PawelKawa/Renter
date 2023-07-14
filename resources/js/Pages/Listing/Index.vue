@@ -1,19 +1,19 @@
 <template>
   <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
     <Box v-for="listing in listings" :key="listing.id">
+      <Link :href="route('listing.show', listing.id)">
       <div>
-        <Link :href="route('listing.show', listing.id)">
           <Price :price="listing.price" class="text-2xl" />
           <ListingSpace :listing="listing" class="text-xl" /> 
           <ListingAddress :listing="listing" class="dark:text-red-200" />
-        </Link>
-      </div>
-      <div>
-        <Link :href="route('listing.edit', listing.id)">Edit</Link>
-      </div>
-      <div>
-        <Link :href="route('listing.destroy', listing.id)" method="delete" as="button">Delete</Link>
-      </div>
+        </div>
+        <div>
+          <Link :href="route('listing.edit', listing.id)">Edit</Link>
+        </div>
+        <div>
+          <Link :href="route('listing.destroy', listing.id)" method="delete" as="button">Delete</Link>
+        </div>
+      </Link>
     </Box>
   </div>
 </template>
