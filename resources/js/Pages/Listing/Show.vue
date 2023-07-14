@@ -63,16 +63,12 @@
                     </div>
                     <div class="text-gray-600 dark:text-gray-300 mt-2">
                         <div class="text-gray-400">
-                            Property cost of: £ {{props.listing.price.toLocaleString()}} 
-                            with £ {{deposit.toLocaleString()}} of deposit <br>
-                            will cost you £ {{ Math.floor(monthlyPayment).toLocaleString() }} monthly
-                            (£ {{Math.floor(monthlyInterest).toLocaleString() }} intrest + £ {{Math.floor(monthlyLoanPayingBack).toLocaleString() }} paying back of the loan)
-                           <br> for {{durationMonths}} months until you pay <br> total of £ {{Math.floor(totalPaid).toLocaleString()}}
-                            with total £ {{Math.floor(interestPaid).toLocaleString()}} of intrest.
+                            Property cost of: £ {{props.listing.price.toLocaleString()}} with £ {{deposit.toLocaleString()}} of deposit 
+                            <br> will cost you £ {{ Math.floor(monthlyPayment).toLocaleString() }} monthly (£ {{Math.floor(monthlyInterest).toLocaleString() }} intrest + £ {{Math.floor(monthlyLoanPayingBack).toLocaleString() }} paying back of the loan)
+                            <br> for {{durationMonths}} months until you pay 
+                            <br> total of £ {{Math.floor(totalPaid).toLocaleString()}} with total £ {{Math.floor(interestPaid).toLocaleString()}} of intrest.
                         </div>
                     </div>
-
-
                 </div>
             </Box>
         </div>
@@ -98,14 +94,14 @@ const loanAmount = computed(() => {
 const durationMonths = computed(() => {
   return duration.value * 12;
 });
-const monthlyInterestRate = computed(() => {
-  return interestRate.value / 100 / 12;
-});
+
 const monthlyPayment = computed(() => {
-  const numerator = monthlyInterestRate.value * Math.pow(1 + monthlyInterestRate.value, durationMonths.value);
-  const denominator = Math.pow(1 + monthlyInterestRate.value, durationMonths.value) - 1;
+  const monthlyInterestRate = interestRate.value / 100 / 12;
+  const numerator = monthlyInterestRate * Math.pow(1 + monthlyInterestRate, durationMonths.value);
+  const denominator = Math.pow(1 + monthlyInterestRate, durationMonths.value) - 1;
   return loanAmount.value * (numerator / denominator);
 });
+
 const totalPaid = computed(() => {
   return monthlyPayment.value * durationMonths.value;
 });
