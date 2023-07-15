@@ -86,12 +86,6 @@
 
 </script>
 
-<script>
-	import MainLayout from '@/Layouts/MainLayout.vue'
-	export default {
-		layout: MainLayout,
-	}
-</script>
 
 <!-- Loading something like presistent Layouts and thanks to that timer is not restarting when swaping pages. -->
 <style scoped>
