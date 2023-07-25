@@ -14,9 +14,15 @@
               + New Listing
             </Link>
           </div>
-          <div>
-            <Link :href="route('logout')" method="delete" as="button">Logout</Link>
-          </div>     
+          <div v-if="user" class="flex gap-8 dark:text-white">
+            <div>Hello {{user.name}} !</div>
+            <div>
+              <Link :href="route('logout')" method="delete" as="button">Logout</Link>
+            </div>     
+          </div>
+          <div v-else>
+            <Link :href="route('login')">Sign-in</Link>
+          </div>
         </nav>
       </div>
     </header>
@@ -36,5 +42,5 @@ import { usePage } from '@inertiajs/vue3'
 
 const page = usePage()
 const flashSuccess = computed(() => page.props.flash.success)
-
+const user = computed(() => page.props.user)
 </script>
