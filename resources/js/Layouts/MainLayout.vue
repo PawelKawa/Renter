@@ -14,6 +14,9 @@
               + New Listing
             </Link>
           </div>
+          <div>
+            <Link :href="route('logout')" method="delete" as="button">Logout</Link>
+          </div>     
         </nav>
       </div>
     </header>
