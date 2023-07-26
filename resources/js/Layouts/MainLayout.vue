@@ -7,6 +7,9 @@
                         <div class="text-lg font-medium">
                             <Link :href="route('listing.index')" class="text-black dark:text-white">Listings</Link>
                         </div>
+                        <div>
+                            <Link :href="route('test')">Test</Link>
+                        </div>
                         <div v-if="user">
                             <Link :href="route('listing.create')" class="primary-btn">+ New Listing</Link>
                         </div>
