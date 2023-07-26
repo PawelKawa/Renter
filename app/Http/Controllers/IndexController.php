@@ -20,7 +20,7 @@ class IndexController extends Controller
     }
 
 
-    public function second(){
-        return inertia('Index/second');
+    public function test(){
+        return inertia('Index/test');
     }
 }
