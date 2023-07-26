@@ -8,7 +8,7 @@
                             <Link :href="route('listing.index')" class="text-black dark:text-white">Listings</Link>
                         </div>
                         <div>
-                            <Link :href="route('test')">Test</Link>
+                            <Link :href="route('test')" class="text-red-500">Testing here !</Link>
                         </div>
                         <div v-if="user">
                             <Link :href="route('listing.create')" class="primary-btn">+ New Listing</Link>
@@ -21,7 +21,8 @@
                         <div>Hello {{user.name}} !</div>
                         <Link :href="route('logout')" class="primary-btn" method="delete" as="button">Logout</Link>
                     </div>
-                    <div v-else class="dark:text-white">
+                    <div v-else class="dark:text-white flex gap-4">
+                        <Link :href="route('user-account.create')">Register</Link>
                         <Link :href="route('login')">Sign-in</Link>
                     </div>
                 </nav>
