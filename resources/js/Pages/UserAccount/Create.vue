@@ -45,5 +45,5 @@
         password: null,
         password_confirmation: null,
     })
-    const register = () => form.post('')
+    const register = () => form.post(route('user-account.store'))
 </script>
