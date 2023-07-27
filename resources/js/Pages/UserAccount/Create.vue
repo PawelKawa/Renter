@@ -35,6 +35,9 @@
             </div>
         </div>
     </form>
+    <div class="mt-4 text-center dark:text-white">
+        <Link :href="route('login')" class="text-sm py-1 px-4">Already register? Click here!</Link>
+    </div>
 </template>
 
 <script setup>

@@ -10,12 +10,14 @@
           <input id="password" v-model="form.password" type="password" class="input" />
         </div>
         <div v-if="form.errors.email" class="input-error">{{ form.errors.email }}</div>
-        <div class="mt-4">
+        <div class="mt-16">
           <button class="primary-btn w-full" type="submit">Login</button>
         </div>
       </div>
     </form>
-
+    <div class="mt-4 text-center dark:text-white">
+      <Link :href="route('user-account.create')" class="text-sm py-1 px-4">You dont have account yet? Click here!</Link>
+    </div>
   </template>
   
   <script setup>
