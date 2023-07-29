@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
 {
@@ -45,7 +46,9 @@ class ListingController extends Controller
         // $listing = new Listing ();
         // $listing->beds = $request->beds;
         // $listing->save();
-        Listing::create(
+        
+        //this will assign by_user_id to logged user in database.
+        $request->user()->listings()->create(
             $request->validate([
                 'beds' => 'required|integer|min:1|max:6',
                 'baths' => 'required|integer|min:1|max:6',
