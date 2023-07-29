@@ -12,4 +12,9 @@ class Listing extends Model
     protected $fillable = [
         'beds', 'baths', 'area', 'city', 'code', 'street', 'street_nr', 'price'
     ];
+    public function owner(){
+        return $this->belongsTo(
+            \App\Models\User::class,
+            'by_user_id');
+    }
 }
