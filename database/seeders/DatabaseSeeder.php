@@ -21,10 +21,16 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory()->create([
             'name' => 'Pawel Kawa',
             'email' => 'ramzord@gmail.com',
+            'is_admin' => true
         ]);
             \App\Models\Listing::factory(20)->create(
                 [
                     'by_user_id' => 1
+                ]
+            );
+            \App\Models\Listing::factory(20)->create(
+                [
+                    'by_user_id' => 2
                 ]
             );
     }

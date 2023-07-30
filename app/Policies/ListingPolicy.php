@@ -8,6 +8,17 @@ use Illuminate\Auth\Access\Response;
 
 class ListingPolicy
 {
+    public function before(?User $user, $ability){
+        // if($user->is_admin && %ablility === 'update){
+        //now admin is not in god mode he can only update other useres listings.
+        //$user? is checking if $user is null (checking if user is logged in) if its null it will not check if it is admin 
+        // so basicaly we skip extra if like this:
+        // if($user){
+            if($user?->is_admin){
+            return true;
+        }
+        // }
+    }
     /**
      * Determine whether the user can view any models.
      */
