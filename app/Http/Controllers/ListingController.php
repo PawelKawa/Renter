@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Listing::class, 'listing');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -46,7 +50,7 @@ class ListingController extends Controller
         // $listing = new Listing ();
         // $listing->beds = $request->beds;
         // $listing->save();
-        
+
         //this will assign by_user_id to logged user in database.
         $request->user()->listings()->create(
             $request->validate([
@@ -73,6 +77,11 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
+        // if (Auth::user()->cannot('view', $listing)){
+        //     abort(403);
+        // };
+
+        $this->authorize('view' ,$listing);
         return inertia(
             'Listing/Show',
             [
