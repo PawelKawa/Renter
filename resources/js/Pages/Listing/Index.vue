@@ -1,5 +1,5 @@
 <template>
-  <Filters />
+  <Filters :filters="filters"/>
   <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
     <Box v-for="listing in listings.data" :key="listing.id">
       <Link :href="route('listing.show', listing.id)">
@@ -32,6 +32,7 @@ import Filters from '@/Components/UI/Filters.vue'
 
 defineProps({
     listings: Object,
+    filters: Object
 })
 
 </script>
