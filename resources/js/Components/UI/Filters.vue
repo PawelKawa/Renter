@@ -7,15 +7,23 @@
             </div>
 
             <div class="flex flex-nowrap items-center">
-                <select class="input-filter" v-model="filterForm.beds">
-                    <option :value="null">Beds</option>
-                    <option v-for="n in 5" :key="n" :value="n">{{ n }}</option>
-                    <option>6+</option>
+                <select class="input-filter" v-model="filterForm.minBeds">
+                    <option :value="null">Min beds</option>
+                    <option v-for="n in 6" :key="n" :value="n">{{ n }}</option>
                 </select>
-                <select class="input-filter" v-model="filterForm.baths">
-                    <option :value="null">Baths</option>
-                    <option v-for="n in 5" :key="n" :value="n">{{ n }}</option>
-                    <option>6+</option>
+                <select class="input-filter" v-model="filterForm.maxBeds">
+                    <option :value="null">Max beds</option>
+                    <option v-for="n in 6" :key="n" :value="n">{{ n }}</option>
+                </select>
+            </div>
+            <div class="flex flex-nowrap items-center">        
+                <select class="input-filter" v-model="filterForm.minBaths">
+                    <option :value="null">Min baths</option>
+                    <option v-for="n in 6" :key="n" :value="n">{{ n }}</option>
+                </select>
+                <select class="input-filter" v-model="filterForm.maxBaths">
+                    <option :value="null">Max baths</option>
+                    <option v-for="n in 6" :key="n" :value="n">{{ n }}</option>
                 </select>
             </div>
 
@@ -23,9 +31,10 @@
                 <input type="text" placeholder="Area from" class="input-filter" v-model.number="filterForm.areaFrom"/>
                 <input type="text" placeholder="Area to" class="input-filter" v-model.number="filterForm.areaTo"/>
             </div>
-
-            <button type="submit" class="btn-normal">Filter</button>
-            <button type="reset" @click="clear" class="btn-normal">Clear</button>
+            <div class="flex gap-4 ml-2">
+                <button type="submit" class="primary-btn">Filter</button>
+                <button type="reset" @click="clear" class="btn-normal">Clear</button>
+            </div>
         </div>
     </form>
 </template>
@@ -38,8 +47,10 @@
         const filterForm = useForm({
             priceFrom: props.filters.priceFrom ?? null,
             priceTo: props.filters.priceTo ?? null,
-            beds: props.filters.beds ?? null,
-            baths: props.filters.baths ?? null,
+            minBeds: props.filters.minBeds ?? null,
+            maxBeds: props.filters.maxBeds ?? null,
+            minBaths: props.filters.minBaths ?? null,
+            maxBaths: props.filters.maxBaths ?? null,
             areaFrom:props.filters.areaFrom ?? null,
             areaTo:props.filters.areaTo ?? null,
         })
@@ -53,10 +64,12 @@
             )
         }
         const clear = () => {
-            filterForm.priceFrom = null,
             filterForm.priceTo = null,
-            filterForm.beds = null,
-            filterForm.baths = null,
+            filterForm.priceFrom = null,
+            filterForm.minBeds = null,
+            filterForm.maxBeds = null,
+            filterForm.minBaths = null,
+            filterForm.maxBaths = null,
             filterForm.areaFrom = null,
             filterForm.areaTo = null
             filter()

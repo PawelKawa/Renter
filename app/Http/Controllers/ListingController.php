@@ -22,7 +22,7 @@ class ListingController extends Controller
         $query = Listing::orderByDesc('created_at');
 
         $filters = $request->only([
-            'priceFrom', 'priceTo', 'beds', 'baths', 'areaFrom', 'areaTo'
+            'priceFrom', 'priceTo', 'minBeds', 'maxBeds', 'minBaths', 'maxBaths', 'areaFrom', 'areaTo'
         ]);
 
         if ($filters['priceFrom'] ?? false) {
@@ -33,12 +33,18 @@ class ListingController extends Controller
             $query->where('price', '<=', $filters['priceTo']);
         }
 
-        if ($filters['beds'] ?? false) {
-            $query->where('beds', $filters['beds']);
+        if ($filters['minBeds'] ?? false) {
+            $query->where('beds', '>=', $filters['minBeds']);
+        }
+        if ($filters['maxBeds'] ?? false) {
+            $query->where('beds', '<=', $filters['maxBeds']);
         }
 
-        if ($filters['baths'] ?? false) {
-            $query->where('baths', $filters['baths']);
+        if ($filters['minBaths'] ?? false) {
+            $query->where('baths', '>=', $filters['minBaths']);
+        }
+        if ($filters['maxBaths'] ?? false) {
+            $query->where('baths', '<=', $filters['maxBaths']);
         }
 
         if ($filters['areaFrom'] ?? false) {
