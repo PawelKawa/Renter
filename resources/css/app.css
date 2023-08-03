@@ -16,7 +16,7 @@
         @apply text-sm text-red-500
     }
     .input-filter {
-        @apply px-2 py-2 w-28 h-10 placeholder:text-gray-800 dark:placeholder:text-gray-200 border border-gray-800 dark:border-gray-200 text-sm font-medium text-gray-600 dark:text-gray-400 dark:bg-gray-800
+        @apply px-2 py-2 w-28 h-10 placeholder:text-gray-800 dark:placeholder:text-gray-200 border border-gray-800 dark:border-gray-200 text-sm font-medium text-gray-600 dark:text-gray-200 dark:bg-gray-800
       }
       .btn-normal {
         @apply bg-gray-200 hover:bg-gray-400 font-medium p-2 rounded-md
