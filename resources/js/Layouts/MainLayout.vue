@@ -18,7 +18,7 @@
                         <Link :href="route('listing.index')"> Renter </Link>
                     </div>
                     <div v-if="user" class="flex gap-8 dark:text-white items-center">
-                        <div>Hello {{user.name}} !</div>
+                        <Link :href="route('realtor.listing.index')">Hello {{user.name}} !</Link>
                         <Link :href="route('logout')" class="primary-btn" method="delete" as="button">Logout</Link>
                     </div>
                     <div v-else class="dark:text-white flex gap-4">
