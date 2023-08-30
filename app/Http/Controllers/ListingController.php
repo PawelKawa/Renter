@@ -24,7 +24,7 @@ class ListingController extends Controller
             'priceFrom', 'priceTo', 'minBeds', 'maxBeds', 'minBaths', 'maxBaths', 'areaFrom', 'areaTo'
         ]);
         
-        $query = Listing::orderByDesc('created_at');
+        // $query = Listing::orderByDesc('created_at');
 
         // if ($filters['areaFrom'] ?? false) {
         //     $query->where('area', '>=', $filters['areaFrom']);
