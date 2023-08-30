@@ -19,48 +19,52 @@ class ListingController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Listing::orderByDesc('created_at');
-
+        
         $filters = $request->only([
             'priceFrom', 'priceTo', 'minBeds', 'maxBeds', 'minBaths', 'maxBaths', 'areaFrom', 'areaTo'
         ]);
+        
+        $query = Listing::orderByDesc('created_at');
 
-        if ($filters['priceFrom'] ?? false) {
-            $query->where('price', '>=', $filters['priceFrom']);
-        }
-
-        if ($filters['priceTo'] ?? false) {
-            $query->where('price', '<=', $filters['priceTo']);
-        }
-
-        if ($filters['minBeds'] ?? false) {
-            $query->where('beds', '>=', $filters['minBeds']);
-        }
-        if ($filters['maxBeds'] ?? false) {
-            $query->where('beds', '<=', $filters['maxBeds']);
-        }
-
-        if ($filters['minBaths'] ?? false) {
-            $query->where('baths', '>=', $filters['minBaths']);
-        }
-        if ($filters['maxBaths'] ?? false) {
-            $query->where('baths', '<=', $filters['maxBaths']);
-        }
-
-        if ($filters['areaFrom'] ?? false) {
-            $query->where('area', '>=', $filters['areaFrom']);
-        }
-
-        if ($filters['areaTo'] ?? false) {
-            $query->where('area', '<=', $filters['areaTo']);
-        }
+        // if ($filters['areaFrom'] ?? false) {
+        //     $query->where('area', '>=', $filters['areaFrom']);
+        // }
+        // if ($filters['areaTo'] ?? false) {
+        //     $query->where('area', '<=', $filters['areaTo']);
+        // }
 
         return inertia(
             'Listing/Index',
             [
                 'filters' => $filters,
-                'listings' => $query
-                ->paginate(10)
+                'listings' => Listing::orderByDesc('created_at')
+                ->when(
+                    ($filters['priceFrom'] ?? false),
+                    //when will not run if it is null, because null will be changed to false therefore not run this when.
+                    fn ($query, $value) => $query->where('price', '>=', $value)
+                )->when(
+                    ($filters['priceTo'] ?? false),
+                    fn ($query, $value) => $query->where('price', '<=', $value)
+                )->when(
+                    ($filters['minBeds'] ?? false),
+                    fn ($query, $value) => $query->where('beds', '>=', $value)
+                )->when(
+                    ($filters['maxBeds'] ?? false),
+                    fn ($query, $value) => $query->where('beds', '<=', $value)
+                )->when(
+                    ($filters['minBaths'] ?? false),
+                    fn ($query, $value) => $query->where('baths', '>=', $value)
+                )->when(
+                    ($filters['maxBaths'] ?? false),
+                    fn ($query, $value) => $query->where('baths', '<=', $value)
+                )->when(
+                    ($filters['areaFrom'] ?? false),
+                    fn ($query, $value) => $query->where('area', '>=', $value)
+                )->when(
+                    ($filters['areaTo'] ?? false),
+                    fn ($query, $value) => $query->where('area', '<=', $value)
+                )
+                ->paginate(12)
                 ->withQueryString()
             ]
         );
