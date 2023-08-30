@@ -37,33 +37,8 @@ class ListingController extends Controller
             'Listing/Index',
             [
                 'filters' => $filters,
-                'listings' => Listing::orderByDesc('created_at')
-                ->when(
-                    ($filters['priceFrom'] ?? false),
-                    //when will not run if it is null, because null will be changed to false therefore not run this when.
-                    fn ($query, $value) => $query->where('price', '>=', $value)
-                )->when(
-                    ($filters['priceTo'] ?? false),
-                    fn ($query, $value) => $query->where('price', '<=', $value)
-                )->when(
-                    ($filters['minBeds'] ?? false),
-                    fn ($query, $value) => $query->where('beds', '>=', $value)
-                )->when(
-                    ($filters['maxBeds'] ?? false),
-                    fn ($query, $value) => $query->where('beds', '<=', $value)
-                )->when(
-                    ($filters['minBaths'] ?? false),
-                    fn ($query, $value) => $query->where('baths', '>=', $value)
-                )->when(
-                    ($filters['maxBaths'] ?? false),
-                    fn ($query, $value) => $query->where('baths', '<=', $value)
-                )->when(
-                    ($filters['areaFrom'] ?? false),
-                    fn ($query, $value) => $query->where('area', '>=', $value)
-                )->when(
-                    ($filters['areaTo'] ?? false),
-                    fn ($query, $value) => $query->where('area', '<=', $value)
-                )
+                'listings' => Listing::mostRecent()
+                ->filter($filters)
                 ->paginate(12)
                 ->withQueryString()
             ]
