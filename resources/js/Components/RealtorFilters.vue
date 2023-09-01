@@ -22,7 +22,6 @@
               </div>
         </div>
     </form>
-    <div>{{props}}</div>
 </template>
 
 <script setup>
