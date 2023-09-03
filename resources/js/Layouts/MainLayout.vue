@@ -11,7 +11,7 @@
                             <Link :href="route('test')" class="text-red-500">Testing here !</Link>
                         </div>
                         <div v-if="user">
-                            <Link :href="route('listing.create')" class="primary-btn">+ New Listing</Link>
+                            <Link :href="route('realtor.listing.create')" class="primary-btn">+ New Listing</Link>
                         </div>
                     </div>
                     <div class="text-xl text-indigo-600 dark:text-indigo-300 font-bold text-center">

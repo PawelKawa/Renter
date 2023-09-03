@@ -8,9 +8,6 @@
           <ListingSpace :listing="listing" class="text-xl" /> 
           <ListingAddress :listing="listing" class="dark:text-red-200" />
         </div>
-        <div>
-          <Link :href="route('listing.edit', listing.id)">Edit</Link>
-        </div>
       </Link>
     </Box>
   </div>

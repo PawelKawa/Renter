@@ -12,12 +12,12 @@ Route::get('/', [IndexController::class, 'index']);
 Route::get('/test', [IndexController::class, 'test'])->name('test');
 
 Route::resource('listing', ListingController::class)
-->only(['create', 'store','edit','update'])
+->only(['create', 'store'])
 ->middleware('auth');
 //only those above need authenticated user.
 // you don't have to be login to use any of pages except below one it could be: ->only(['index', 'show']) only those are allowed
 Route::resource('listing', ListingController::class)
-->except(['create', 'store','edit','update', 'destroy']);
+->only(['index', 'show']);
 
 Route::get('login', [AuthController::class, 'create'])
   ->name('login');
@@ -34,5 +34,5 @@ Route::delete('logout', [AuthController::class, 'destroy'])
   ->middleware('auth')
   ->group(function(){
     Route::resource('listing', RealtorListingController::class)
-    ->only(['index', 'destroy']);
+    ->only(['index', 'destroy', 'edit', 'update', 'create', 'store']);
   });

@@ -50,42 +50,7 @@ class ListingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return inertia('Listing/Create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        // dd($request->all());
-
-        // $listing = new Listing ();
-        // $listing->beds = $request->beds;
-        // $listing->save();
-
-        //this will assign by_user_id to logged user in database.
-        $request->user()->listings()->create(
-            $request->validate([
-                'beds' => 'required|integer|min:1|max:6',
-                'baths' => 'required|integer|min:1|max:6',
-                'area' => 'required|integer|min:15|max:400',
-                'city' => 'required',
-                'code' => 'required',
-                'street' => 'required',
-                'street_nr' => 'required|min:1',
-                'price' => 'required|integer|min:1|max:20000000'
-            ])
-        );
-        
-        return redirect()->route('listing.index')->with('success', 'Listing was created!');
-
-    }
+    
 
     /**
      * Display the specified resource.
@@ -114,40 +79,7 @@ class ListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Listing $listing)
-    {
-        return inertia(
-            'Listing/Edit',
-            [
-                'listing' => $listing
-            ]
-        );
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Listing $listing)
-    {
-        $listing->update(
-            $request->validate([
-                'beds' => 'required|integer|min:1|max:6',
-                'baths' => 'required|integer|min:1|max:6',
-                'area' => 'required|integer|min:15|max:400',
-                'city' => 'required',
-                'code' => 'required',
-                'street' => 'required',
-                'street_nr' => 'required|min:1',
-                'price' => 'required|integer|min:1|max:20000000'
-            ])
-        );
     
-        return redirect()->route('listing.index')->with('success', 'Listing was updated!');
-    }    
 
     /**
      * Remove the specified resource from storage.

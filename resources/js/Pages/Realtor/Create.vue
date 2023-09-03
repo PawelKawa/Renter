@@ -78,21 +78,8 @@ const form = useForm({
     price: 0,
 
 })
-const create = () => form.post(route('listing.store'))
+const create = () => form.post(route('realtor.listing.store'))
 </script>
 
 
 <!-- Loading something like presistent Layouts and thanks to that timer is not restarting when swaping pages. -->
-<style scoped>
-	label {
-		margin-right: 2em;
-	}
-
-	div {
-		padding: 2px
-	}
-
-	input {
-		border: 1px black solid;
-	}
-</style>

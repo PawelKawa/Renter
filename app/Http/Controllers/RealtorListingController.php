@@ -31,6 +31,64 @@ class RealtorListingController extends Controller
             ->withQueryString()
         ]);
     }
+    public function edit(Listing $listing)
+    {
+        return inertia(
+            'Realtor/Edit',
+            [
+                'listing' => $listing
+            ]
+        );
+    }
+
+    public function update(Request $request, Listing $listing)
+    {
+        $listing->update(
+            $request->validate([
+                'beds' => 'required|integer|min:1|max:6',
+                'baths' => 'required|integer|min:1|max:6',
+                'area' => 'required|integer|min:15|max:400',
+                'city' => 'required',
+                'code' => 'required',
+                'street' => 'required',
+                'street_nr' => 'required|min:1',
+                'price' => 'required|integer|min:1|max:20000000'
+            ])
+        );
+    
+        return redirect()->route('realtor.listing.index')->with('success', 'Listing was updated!');
+    }    
+
+    public function create()
+    {
+        return inertia('Realtor/Create');
+    }
+
+    public function store(Request $request)
+    {
+        // dd($request->all());
+
+        // $listing = new Listing ();
+        // $listing->beds = $request->beds;
+        // $listing->save();
+
+        //this will assign by_user_id to logged user in database.
+        $request->user()->listings()->create(
+            $request->validate([
+                'beds' => 'required|integer|min:1|max:6',
+                'baths' => 'required|integer|min:1|max:6',
+                'area' => 'required|integer|min:15|max:400',
+                'city' => 'required',
+                'code' => 'required',
+                'street' => 'required',
+                'street_nr' => 'required|min:1',
+                'price' => 'required|integer|min:1|max:20000000'
+            ])
+        );
+        
+        return redirect()->route('realtor.index')->with('success', 'Listing was created!');
+
+    }
     
     public function destroy(Listing $listing)
     {

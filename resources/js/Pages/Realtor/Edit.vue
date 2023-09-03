@@ -82,22 +82,7 @@
 
 	})
 	// const update = () => form.put(`/listing/${props.listing.id}`)
-	const update = () => form.put(route('listing.update', props.listing.id))
+	const update = () => form.put(route('realtor.listing.update', props.listing.id))
 
 </script>
 
-
-<!-- Loading something like presistent Layouts and thanks to that timer is not restarting when swaping pages. -->
-<style scoped>
-	label {
-		margin-right: 2em;
-	}
-
-	div {
-		padding: 2px
-	}
-
-	input {
-		border: 1px black solid;
-	}
-</style>
